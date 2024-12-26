@@ -6,20 +6,20 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: f71fff352a37316b9bead717fc76e4ddd6c9b99c4680cdf4783b9755af1cf985
 
 build:
   noarch: python
-  number: 1
+  number: 2
   script: "{{ PYTHON }} -m pip install . -vv"
 
 requirements:
   host:
-    - python >=3.6
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - django >=1.8.0
 
 test:
@@ -27,6 +27,7 @@ test:
     - ranged_response
   requires:
     - pip
+    - python {{ python_min }}
   commands:
     - pip check
 
